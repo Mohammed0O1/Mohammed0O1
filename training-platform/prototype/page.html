@@ -1,0 +1,289 @@
+<title>منصة مَنَعة التدريبية</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: app shell — sticky bar (brand + role switch), tab row, one working view per tab; the session card's three-phase cycle is the anchor. */
+:root{
+  --bg:#F2F5F4; --surface:#FFFFFF; --sunken:#E7EDEB; --line:#D3DDDA;
+  --ink:#10262B; --muted:#56696C;
+  --accent:#0C6A62; --accent-ink:#FFFFFF; --accent-soft:#DCEEEA;
+  --brass:#9A6A14; --brass-soft:#F4E8CF;
+  --good:#1C7448; --good-soft:#DDF0E5; --warn:#99590A; --warn-soft:#F8E9CC; --crit:#AE3428; --crit-soft:#F8DEDA;
+  --display:"Alexandria","IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0D1A1C; --surface:#15272A; --sunken:#0A1416; --line:#27403F;
+  --ink:#E6EFED; --muted:#93A8A6;
+  --accent:#4FC2B4; --accent-ink:#06211E; --accent-soft:#173B38;
+  --brass:#E0B25A; --brass-soft:#3A2F16;
+  --good:#63C990; --good-soft:#173524; --warn:#E5AC4F; --warn-soft:#3B2D12; --crit:#F08A7D; --crit-soft:#41201C;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1A1C; --surface:#15272A; --sunken:#0A1416; --line:#27403F;
+  --ink:#E6EFED; --muted:#93A8A6;
+  --accent:#4FC2B4; --accent-ink:#06211E; --accent-soft:#173B38;
+  --brass:#E0B25A; --brass-soft:#3A2F16;
+  --good:#63C990; --good-soft:#173524; --warn:#E5AC4F; --warn-soft:#3B2D12; --crit:#F08A7D; --crit-soft:#41201C;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3{font-family:var(--display);line-height:1.35;margin:0;text-wrap:balance}
+h1{font-size:1.5rem;font-weight:700} h2{font-size:1.125rem;font-weight:600} h3{font-size:1rem;font-weight:600}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.125rem}
+.brand svg{flex:none}
+.brand small{font-family:var(--body);font-weight:400;font-size:.8125rem;color:var(--muted)}
+.seg{display:flex;background:var(--sunken);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;border-radius:999px;padding:4px 14px;font-size:.875rem;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.tabs{overflow-x:auto;border-bottom:1px solid var(--line);background:var(--surface)}
+.tabs .wrap{display:flex;gap:4px}
+.tabs button{border:0;background:none;padding:10px 12px;white-space:nowrap;color:var(--muted);border-bottom:3px solid transparent;font-weight:500}
+.tabs button[aria-current="page"]{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+
+main.wrap{padding-block:20px 48px;display:flex;flex-direction:column;gap:20px}
+.note{font-size:.8125rem;color:var(--brass);background:var(--brass-soft);border-radius:var(--r);padding:6px 12px}
+.sub{color:var(--muted);font-size:.9375rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.8125rem;font-weight:600;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.good{color:var(--good);background:var(--good-soft)} .pill.warn{color:var(--warn);background:var(--warn-soft)}
+.pill.crit{color:var(--crit);background:var(--crit-soft)} .pill.idle{color:var(--muted);background:var(--sunken)}
+.btn{border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);border-radius:8px;padding:7px 16px;font-weight:600}
+.btn.ghost{background:none;color:var(--accent)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.mono{font-family:var(--mono);direction:ltr;unicode-bidi:isolate;letter-spacing:.06em}
+.num{font-variant-numeric:tabular-nums}
+
+/* five-day track */
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.day{border-top:4px solid var(--line);padding-top:8px;font-size:.8125rem;color:var(--muted);min-width:0}
+.day b{display:block;color:var(--ink);font-weight:600}
+.day.done{border-color:var(--good)} .day.now{border-color:var(--brass)} .day.now b{color:var(--brass)}
+@media (max-width:560px){.day span{display:none}}
+
+/* three-phase cycle */
+.cycle{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.phase{background:var(--sunken);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.phase .k{font-family:var(--display);font-size:.8125rem;color:var(--accent);font-weight:600}
+.phase p{font-size:.9375rem;flex:1}
+
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.kpi b{display:block;font-family:var(--display);font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.8125rem;color:var(--muted)}
+
+.course{text-align:start;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.course[aria-expanded="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.course .code{font-size:.75rem;color:var(--brass)}
+.course .meta{font-size:.8125rem;color:var(--muted)}
+ul.plain{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+ul.plain li{display:flex;gap:10px;align-items:baseline;font-size:.9375rem}
+ul.plain li i{font-style:normal;color:var(--brass);font-family:var(--mono);font-size:.8125rem;flex:none}
+
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9375rem}
+th,td{text-align:start;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:.8125rem;color:var(--muted);font-weight:500}
+td.num{font-variant-numeric:tabular-nums}
+tr.me td{background:var(--accent-soft)}
+
+.bar{display:grid;grid-template-columns:minmax(90px,150px) 1fr 3ch;gap:10px;align-items:center;font-size:.9375rem}
+.bar .t{height:12px;background:var(--sunken);border-radius:6px;overflow:hidden}
+.bar .t i{display:block;height:100%;background:var(--accent);border-radius:6px}
+.bar .t i.warn{background:var(--warn)} .bar .t i.crit{background:var(--crit)}
+
+.code-in{font-family:var(--mono);font-size:1.25rem;letter-spacing:.3em;text-transform:uppercase;direction:ltr;text-align:center;width:11ch;max-width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.bigcode{font-family:var(--mono);font-size:2.25rem;letter-spacing:.25em;direction:ltr;color:var(--accent);background:var(--sunken);border-radius:var(--r);padding:14px;text-align:center}
+.q{display:flex;flex-direction:column;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.q label{display:flex;gap:10px;align-items:baseline;padding:6px 10px;border-radius:8px;border:1px solid var(--line);cursor:pointer}
+.q label.ok{border-color:var(--good);background:var(--good-soft)} .q label.no{border-color:var(--crit);background:var(--crit-soft)}
+.q .why{font-size:.875rem;color:var(--muted)}
+
+.cert{border:2px solid var(--brass);border-radius:4px;padding:28px 20px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;background:var(--surface);position:relative;overflow:hidden}
+.cert::after{content:"نموذج";position:absolute;inset-block-start:14px;inset-inline-start:14px;font-size:.75rem;color:var(--brass);border:1px solid var(--brass);padding:0 8px;border-radius:4px}
+.cert h2{font-size:1.375rem}
+@media (prefers-reduced-motion:no-preference){.bar .t i{transition:width .5s ease}}
+</style>
+
+<div dir="rtl" lang="ar">
+<header class="top"><div class="wrap">
+  <div class="brand">
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 2 26 6v8c0 7-4.6 11.6-11 14C8.6 25.600 4 21 4 14V6z" fill="var(--accent)"/><path d="m10 15 3.500 3.500L20.500 11" fill="none" stroke="var(--accent-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>مَنَعة <small>تدريب حضوري مدعوم رقمياً</small></span>
+  </div>
+  <div class="seg" role="group" aria-label="عرض المنصة بصفة" id="roles"></div>
+</div></header>
+<nav class="tabs" aria-label="أقسام المنصة"><div class="wrap" id="tabs"></div></nav>
+<main class="wrap" id="view"></main>
+</div>
+
+<script>
+document.documentElement.lang='ar';document.documentElement.dir='rtl';
+
+const CODE='K7M2QX';
+const ROLES={trainee:'متدرب',trainer:'مدرب',org:'جهة العمل'};
+const TABS={
+  trainee:[['home','الرئيسية'],['courses','المسارات'],['attend','تسجيل الحضور'],['quiz','اختبار اليوم'],['cert','الشهادة']],
+  trainer:[['cohort','الدفعة'],['session','جلسة اليوم']],
+  org:[['ready','مؤشر الجاهزية']]
+};
+const COURSES=[
+ {c:'CR-101',t:'أساسيات الجاهزية السيبرانية',d:5,a:'جميع الموظفين',l:'تأسيسي',u:['كلمات المرور والمصادقة الثنائية','التصيّد والهندسة الاجتماعية','حماية البيانات وتصنيفها','الإبلاغ عن الحوادث','تمرين محاكاة ختامي']},
+ {c:'NW-110',t:'CCNA للضباط',d:15,a:'الضباط والفنيون',l:'تأسيسي',u:['نموذج OSI و TCP/IP','العنونة والتقسيم الفرعي','التبديل و VLAN','التوجيه و OSPF','قوائم التحكم ACL وأمن المنافذ']},
+ {c:'KL-120',t:'Kali Linux والأدوات السيبرانية',d:5,a:'المتخصصون المبتدئون',l:'متوسط',u:['سطر الأوامر وإدارة النظام','Nmap والاستطلاع','Wireshark وتحليل الحزم','Burp Suite','توثيق النتائج']},
+ {c:'PY-130',t:'Python للأمن السيبراني',d:10,a:'المتخصصون المبتدئون',l:'متوسط',u:['أساسيات اللغة','التعامل مع الملفات والسجلات','مقابس الشبكة Sockets','أتمتة الفحص','مشروع: أداة تحليل سجلات']},
+ {c:'BD-210',t:'الأمن السيبراني الدفاعي',d:10,a:'فرق المراقبة والاستجابة',l:'متقدم',u:['مركز العمليات SOC و SIEM','تحليل السجلات والتنبيهات','الاستجابة للحوادث','صيد التهديدات','تمرين فريق أزرق']},
+ {c:'RD-220',t:'الأمن السيبراني الهجومي',d:10,a:'فرق اختبار الاختراق',l:'متقدم',u:['منهجية اختبار الاختراق','استغلال الثغرات في بيئة معزولة','اختبار تطبيقات الويب','تصعيد الصلاحيات','كتابة تقرير الاختبار']},
+ {c:'AI-140',t:'الذكاء الاصطناعي',d:5,a:'جميع الموظفين',l:'تأسيسي',u:['مفاهيم تعلم الآلة','النماذج اللغوية وكتابة التعليمات','الاستخدام الآمن وحماية البيانات','الذكاء الاصطناعي في الدفاع السيبراني','مشروع تطبيقي']}
+];
+const DAYS=['كلمات المرور','حماية البيانات','التصيّد','الإبلاغ عن الحوادث','المحاكاة الختامية'];
+const QUIZ=[
+ {q:'وصلتك رسالة من «الدعم الفني» تطلب كلمة مرورك لتحديث النظام خلال ساعة. ما التصرف الصحيح؟',o:['أرسلها لأن المهلة قصيرة','أتجاهل الرسالة وأحذفها فقط','أبلّغ فريق الأمن ولا أشارك كلمة المرور','أرد بطلب إثبات هوية المرسل'],a:2,w:'الدعم الفني لا يطلب كلمة المرور أبداً، والإبلاغ يحمي زملاءك من الرسالة نفسها.'},
+ {q:'أي عنوان من التالي يثير الشك أكثر في رسالة تدّعي أنها من جهتك؟',o:['hr@agency.gov.example','hr@agency-gov.example.co','it@agency.gov.example','info@agency.gov.example'],a:1,w:'النطاق مختلف عن النطاق الرسمي حتى لو تشابه الاسم.'},
+ {q:'وجدت ذاكرة USB في موقف السيارات مكتوب عليها «رواتب 2026». ماذا تفعل؟',o:['أفتحها على جهاز العمل لمعرفة صاحبها','أفتحها على جهازي الشخصي','أسلّمها لفريق الأمن دون توصيلها','أتركها مكانها'],a:2,w:'الذواكر المتروكة أسلوب هجوم معروف، والتسليم يمنع غيرك من توصيلها.'},
+ {q:'اتصل بك شخص يقول إنه من البنك ويطلب رمز التحقق الذي وصلك للتو. هذا مثال على:',o:['التصيّد الصوتي','هجوم حجب الخدمة','برمجية فدية','هجوم القوة العمياء'],a:0,w:'طلب رمز التحقق هاتفياً هو تصيّد صوتي (Vishing).'},
+ {q:'ضغطت بالخطأ على رابط مشبوه وأدخلت بياناتك. ما أول خطوة؟',o:['أنتظر لأرى هل يحدث شيء','أغيّر كلمة المرور وأبلّغ فريق الأمن فوراً','أحذف الرسالة','أعيد تشغيل الجهاز'],a:1,w:'السرعة في التغيير والإبلاغ تحدّ من الضرر، ولا لوم على من يبلّغ.'}
+];
+const PEOPLE=[['سالم ر.','الموارد البشرية',100,true,90],['مريم ح.','المالية',100,true,80],['خالد س.','تقنية المعلومات',100,true,100],['نورة ع.','خدمة المتعاملين',50,false,50],['يوسف م.','الشؤون القانونية',100,false,70],['هند ب.','المالية',50,false,40],['أحمد ك.','الموارد البشرية',100,true,80]];
+const DEPTS=[['تقنية المعلومات',91],['الموارد البشرية',82],['المالية',74],['الشؤون القانونية',70],['خدمة المتعاملين',58]];
+
+const S={role:'trainee',tab:'home',prep:false,checked:false,codeErr:'',ans:{},done:false,open:0};
+try{const r=localStorage.getItem('manaa-role');if(ROLES[r]){S.role=r;S.tab=TABS[r][0][0]}}catch(e){}
+const $=s=>document.querySelector(s);
+const score=()=>QUIZ.reduce((n,x,i)=>n+(S.ans[i]===x.a?1:0),0);
+const pct=()=>Math.round(score()/QUIZ.length*100);
+const passed=()=>S.done&&pct()>=70;
+const pill=(k,t)=>`<span class="pill ${k}">${t}</span>`;
+
+const V={
+home(){return `
+  <div><h1>مرحباً، أنت في اليوم الثالث من خمسة</h1><p class="sub">CR-101 أساسيات الجاهزية السيبرانية · الدفعة 14</p></div>
+  <section class="card"><div class="days">${DAYS.map((d,i)=>`<div class="day ${i<2?'done':i==2?'now':''}"><b>اليوم ${i+1}</b><span>${d}</span></div>`).join('')}</div></section>
+  <section class="card">
+    <div class="row"><h2>جلسة اليوم: التصيّد والهندسة الاجتماعية</h2><span class="sub">الأحد 15 نوفمبر 2026 · 8:30 ص · القاعة 2</span></div>
+    <div class="cycle">
+      <div class="phase"><span class="k">1 · قبل الحضور</span><p>فيديو 12 دقيقة وثلاثة أمثلة لرسائل تصيّد حقيقية الشكل.</p>
+        ${S.prep?pill('good','أتممت التحضير'):`<button class="btn ghost" data-act="prep">أتممت التحضير</button>`}</div>
+      <div class="phase"><span class="k">2 · في القاعة</span><p>شرح المدرب ثم مختبر عملي: تحليل ترويسة بريد مشبوه.</p>
+        ${S.checked?pill('good','حضورك مسجّل'):`<button class="btn" data-go="attend">سجّل حضورك</button>`}</div>
+      <div class="phase"><span class="k">3 · بعد الحضور</span><p>اختبار من 5 أسئلة يثبّت ما تعلمته. درجة النجاح 70%.</p>
+        ${S.done?pill(passed()?'good':'crit',`نتيجتك ${pct()}%`):`<button class="btn ghost" data-go="quiz">ابدأ الاختبار</button>`}</div>
+    </div>
+  </section>
+  <div class="kpis">
+    <div class="kpi"><b>${S.checked?'3':'2'} / 5</b><span>أيام الحضور</span></div>
+    <div class="kpi"><b>85%</b><span>متوسط اختباراتك السابقة</span></div>
+    <div class="kpi"><b>${passed()&&S.checked?'يومان':'3 أيام'}</b><span>المتبقي للشهادة</span></div>
+  </div>`},
+
+courses(){const k=COURSES[S.open];return `
+  <div><h1>المسارات التدريبية</h1><p class="sub">سبع دورات حضورية. لكل يوم تدريبي تحضير قبله واختبار بعده على المنصة.</p></div>
+  <div class="grid">${COURSES.map((x,i)=>`<button class="course" data-open="${i}" aria-expanded="${i==S.open}">
+    <span class="code mono">${x.c}</span><h3>${x.t}</h3><span class="meta">${x.d} أيام · ${x.l} · ${x.a}</span></button>`).join('')}</div>
+  <section class="card"><div class="row"><h2>${k.t}</h2>${pill('idle',k.l)}</div>
+    <ul class="plain">${k.u.map((u,i)=>`<li><i>${String(i+1).padStart(2,'0')}</i><span>${u}</span></li>`).join('')}</ul>
+    <p class="sub">${k.d} أيام حضورية · الفئة المستهدفة: ${k.a}</p></section>`},
+
+attend(){return `
+  <div><h1>تسجيل الحضور</h1><p class="sub">يعرض المدرب رمز الجلسة على الشاشة في القاعة. أدخله هنا لتسجيل حضورك.</p></div>
+  <section class="card" style="align-items:flex-start">
+    ${S.checked?`${pill('good','تم تسجيل حضورك')}<p>اليوم الثالث · القاعة 2 · سُجّل الساعة 8:34 ص</p><button class="btn ghost" data-go="home">العودة للرئيسية</button>`
+    :`<label for="code"><b>رمز الجلسة</b></label>
+      <input class="code-in" id="code" maxlength="6" autocomplete="off" inputmode="latin" aria-describedby="code-help">
+      <p class="sub" id="code-help" ${S.codeErr?'style="color:var(--crit)"':''}>${S.codeErr||'ستة أحرف وأرقام. للتجربة: انتقل إلى عرض «مدرب» لترى الرمز.'}</p>
+      <button class="btn" data-act="check">تسجيل الحضور</button>`}
+  </section>`},
+
+quiz(){return `
+  <div><h1>اختبار اليوم الثالث: التصيّد</h1><p class="sub">5 أسئلة · درجة النجاح 70% · تظهر النتيجة لك وللمدرب فوراً</p></div>
+  <section class="card">
+    ${S.done?`<div class="row"><h2>نتيجتك: <span class="num">${score()} من ${QUIZ.length}</span></h2>${pill(passed()?'good':'crit',passed()?'ناجح':'لم تجتز، أعد المحاولة')}</div>`:''}
+    ${QUIZ.map((x,i)=>`<fieldset class="q" style="border-inline:0;border-top:0;margin:0;padding-inline:0;padding-top:0"><legend style="font-weight:600;padding:0;margin-bottom:8px">${i+1}. ${x.q}</legend>
+      ${x.o.map((o,j)=>`<label class="${S.done?(j==x.a?'ok':S.ans[i]===j?'no':''):''}"><input type="radio" name="q${i}" id="q${i}o${j}" value="${j}" ${S.ans[i]===j?'checked':''} ${S.done?'disabled':''}><span ${/[a-z]@/.test(o)?'class="mono"':''}>${o}</span></label>`).join('')}
+      ${S.done?`<p class="why">${x.w}</p>`:''}</fieldset>`).join('')}
+    <div class="row" style="justify-content:flex-start">
+      ${S.done?`<button class="btn ghost" data-act="retry">إعادة المحاولة</button>`:`<button class="btn" data-act="submit" ${Object.keys(S.ans).length<QUIZ.length?'disabled':''}>إرسال الإجابات</button><span class="sub">أجبت عن ${Object.keys(S.ans).length} من ${QUIZ.length}</span>`}
+    </div>
+  </section>`},
+
+cert(){return `
+  <div><h1>الشهادة</h1><p class="sub">تصدر تلقائياً عند استيفاء الشرطين، ويمكن لأي جهة التحقق منها برمزها.</p></div>
+  <section class="card"><ul class="plain">
+    <li>${pill(S.checked?'warn':'idle',S.checked?'3 من 5 أيام':'2 من 5 أيام')}<span>حضور 80% على الأقل من أيام الدورة</span></li>
+    <li>${pill('idle','لم يحن موعده')}<span>اجتياز الاختبار النهائي بدرجة 70% في اليوم الخامس</span></li></ul></section>
+  <section class="cert"><span class="sub">تشهد منصة مَنَعة بأن</span><h2>اسم المتدرب</h2>
+    <p>أتمّ دورة <b>أساسيات الجاهزية السيبرانية</b> · 5 أيام حضورية · 25 ساعة تدريبية</p>
+    <p class="sub">رمز التحقق <span class="mono">MN-2026-00314</span></p></section>`},
+
+cohort(){const rows=[...PEOPLE.map(p=>({n:p[0],d:p[1],at:p[2],pr:p[3],q:p[4]})),{n:'المتدرب التجريبي (أنت)',d:'العرض التجريبي',at:S.checked?100:67,pr:S.prep,q:S.done?pct():null,me:1}];
+  const risk=r=>r.at<80||(r.q!==null&&r.q<70);
+  return `
+  <div><h1>الدفعة 14 · أساسيات الجاهزية السيبرانية</h1><p class="sub">اليوم 3 من 5 · القاعة 2 · 24 متدرباً (يظهر 8 منهم في العرض التجريبي)</p></div>
+  <div class="kpis">
+    <div class="kpi"><b>${21+(S.checked?1:0)} / 24</b><span>حضور اليوم</span></div>
+    <div class="kpi"><b>${63+(S.prep?4:0)}%</b><span>أتموا التحضير قبل الجلسة</span></div>
+    <div class="kpi"><b>${rows.filter(risk).length}</b><span>يحتاجون متابعة</span></div>
+  </div>
+  <section class="card"><h2>المتدربون</h2><div class="scroll"><table>
+    <thead><tr><th>المتدرب</th><th>الإدارة</th><th>الحضور</th><th>تحضير اليوم</th><th>اختبار اليوم</th><th>الحالة</th></tr></thead>
+    <tbody>${rows.map(r=>`<tr class="${r.me?'me':''}"><td>${r.n}</td><td>${r.d}</td><td class="num">${r.at}%</td><td>${r.pr?'تم':'لم يتم'}</td><td class="num">${r.q===null?'لم يُسلَّم':r.q+'%'}</td><td>${risk(r)?pill('warn','يحتاج متابعة'):pill('good','منتظم')}</td></tr>`).join('')}</tbody>
+  </table></div><p class="sub">الصف المظلل يتغير مباشرة حين تسجّل الحضور أو تحل الاختبار في عرض «متدرب».</p></section>`},
+
+session(){return `
+  <div><h1>جلسة اليوم: التصيّد والهندسة الاجتماعية</h1><p class="sub">اعرض هذا الرمز على شاشة القاعة. يتغير الرمز مع كل جلسة.</p></div>
+  <section class="card"><div class="bigcode">${CODE}</div>
+    <div class="row"><span>سجّل الحضور <b class="num">${21+(S.checked?1:0)}</b> من 24</span>${pill(S.checked?'good':'idle',S.checked?'المتدرب التجريبي حاضر':'المتدرب التجريبي لم يسجّل بعد')}</div></section>
+  <section class="card"><h2>خطة الجلسة</h2><ul class="plain">
+    <li><i>08:30</i><span>مراجعة نتائج التحضير: أي الأمثلة الثلاثة خدع أكثر المتدربين</span></li>
+    <li><i>09:00</i><span>شرح: علامات رسالة التصيّد وأنواع الهندسة الاجتماعية</span></li>
+    <li><i>10:15</i><span>مختبر: تحليل ترويسة بريد مشبوه وتتبّع مصدره</span></li>
+    <li><i>11:30</i><span>نقاش حالات من واقع الجهة ثم فتح اختبار اليوم</span></li></ul></section>`},
+
+ready(){return `
+  <div><h1>مؤشر الجاهزية السيبرانية للجهة</h1><p class="sub">يُحسب من الحضور ونتائج الاختبارات ومحاكاة التصيّد لكل إدارة · من 100</p></div>
+  <div class="kpis">
+    <div class="kpi"><b>1,540</b><span>موظف مسجّل</span></div>
+    <div class="kpi"><b>1,120</b><span>أتموا دورة الجاهزية</span></div>
+    <div class="kpi"><b>48% ← 81%</b><span>متوسط الاختبار القبلي ثم البعدي</span></div>
+    <div class="kpi"><b>75</b><span>مؤشر الجهة</span></div>
+  </div>
+  <section class="card"><h2>المؤشر حسب الإدارة</h2>
+    ${DEPTS.map(d=>`<div class="bar"><span>${d[0]}</span><div class="t"><i class="${d[1]<60?'crit':d[1]<75?'warn':''}" style="width:${d[1]}%"></i></div><b class="num">${d[1]}</b></div>`).join('')}
+    <p class="sub">${pill('crit','أقل من 60')} خدمة المتعاملين تحتاج دفعة إضافية قبل نهاية الربع.</p></section>`}
+};
+
+function render(){
+  $('#roles').innerHTML=Object.entries(ROLES).map(([k,v])=>`<button data-role="${k}" aria-pressed="${k==S.role}">${v}</button>`).join('');
+  $('#tabs').innerHTML=TABS[S.role].map(([k,v])=>`<button data-go="${k}" ${k==S.tab?'aria-current="page"':''}>${v}</button>`).join('');
+  $('#view').innerHTML=`<p class="note">نموذج أولي للعرض: كل الأسماء والأرقام والتواريخ أمثلة توضيحية، ولا تُحفظ أي بيانات.</p>`+V[S.tab]();
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+  if(d.role){S.role=d.role;S.tab=TABS[d.role][0][0];try{localStorage.setItem('manaa-role',d.role)}catch(x){}}
+  else if(d.go){S.tab=d.go}
+  else if(d.open){S.open=+d.open}
+  else if(d.act=='prep'){S.prep=true}
+  else if(d.act=='check'){const v=($('#code').value||'').trim().toUpperCase();if(v===CODE){S.checked=true;S.codeErr=''}else{S.codeErr=v?'الرمز غير صحيح. تأكد من الرمز المعروض على شاشة القاعة.':'أدخل رمز الجلسة أولاً.'}}
+  else if(d.act=='submit'){S.done=true}
+  else if(d.act=='retry'){S.done=false;S.ans={}}
+  else return;
+  render();if(d.role||d.go)window.scrollTo(0,0);
+});
+document.addEventListener('change',e=>{const m=/^q(\d+)$/.exec(e.target.name||'');if(m){S.ans[m[1]]=+e.target.value;render()}});
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.id=='code'){e.preventDefault();document.querySelector('[data-act="check"]').click()}});
+render();
+</script>
