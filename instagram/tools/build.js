@@ -52,7 +52,7 @@ h2{font-size:76px;line-height:1.28;font-weight:700}
 .pw{font-family:"Mono",monospace;direction:ltr;text-align:center;font-size:64px;border-radius:20px;padding:36px 20px}
 .pw.bad{background:#2A1A1A;border:3px solid #E4572E;color:#F3EFE6}
 .pw.good{background:#12281F;border:3px solid #4FB286;color:#F3EFE6;font-size:52px}
-${REEL ? '.page{padding:300px 110px 470px 92px}.foot{bottom:330px}.swipe{display:none}' : ''}
+${REEL ? '.page{padding:280px 110px 420px 92px}.mid{zoom:1.14}.foot{bottom:330px}.swipe{display:none}' : ''}
 .q{background:#F2A541;color:#0E1A24;border-radius:28px;padding:48px 52px;font-size:60px;font-weight:700;line-height:1.4}
 `;
 
@@ -144,6 +144,46 @@ const sets = {
         ${item('2', 'التحقق بخطوتين', 'يحمي حسابك حتى لو تسرّبت كلمة المرور.')}
        </div>`,
       `<div class="q">هل تستخدم كلمة المرور نفسها لأكثر من حساب؟</div><p class="sub">أجب بصراحة في التعليقات، وتابع الحساب لمزيد من نصائح الأمن السيبراني.</p>`,
+    ],
+  },
+  'wifi': {
+    tag: 'الأمن السيبراني',
+    slides: [
+      `<h1>Wi-Fi عام؟ <em>3 أخطاء</em> تكشف بياناتك</h1><p class="sub">في المقهى أو المطار أو الفندق</p>`,
+      `<div class="big">01</div><h2>الدخول إلى حسابك البنكي</h2><p class="body">الشبكات العامة قد تكون مراقَبة. أجّل المعاملات المالية أو استخدم بيانات الهاتف.</p>`,
+      `<div class="big">02</div><h2>الاتصال التلقائي بالشبكات</h2><p class="body">هاتفك قد يتصل بشبكة مزيّفة تحمل اسمًا مألوفًا. عطّل الاتصال التلقائي.</p>`,
+      `<div class="big">03</div><h2>تجاهل تحذيرات المتصفح</h2><p class="body">إذا ظهر تحذير «الاتصال غير آمن» فلا تتابع ولا تُدخل أي بيانات.</p>`,
+      `<div class="q">هل تستخدم Wi-Fi العام بدون حماية؟</div><p class="sub">أجب في التعليقات.</p>`,
+    ],
+  },
+  'ip-mac': {
+    tag: 'الشبكات · CCNA',
+    slides: [
+      `<h1>IP أم <em>MAC؟</em></h1><p class="sub">الفرق بين العنوانين في 30 ثانية</p>`,
+      `<div class="big">01</div><h2>عنوان MAC</h2><div class="code">00:1A:2B:3C:4D:5E</div><p class="body">عنوان ثابت للبطاقة الشبكية يحدده المصنّع، ويُستخدم داخل الشبكة المحلية.</p>`,
+      `<div class="big">02</div><h2>عنوان IP</h2><div class="code">192.168.1.25</div><p class="body">عنوان منطقي يُعطى للجهاز في الشبكة، ويتغيّر بتغيّر الشبكة.</p>`,
+      `<div class="big">03</div><h2>كيف يعملان معًا؟</h2><p class="body">عنوان IP يوصل البيانات إلى الشبكة الصحيحة، وعنوان MAC يوصلها إلى الجهاز الصحيح داخلها. بروتوكول ARP يربط بينهما.</p>`,
+      `<div class="q">ما الموضوع التالي الذي تريده في الشبكات؟</div><p class="sub">اكتبه في التعليقات.</p>`,
+    ],
+  },
+  'ai-security': {
+    tag: 'الذكاء الاصطناعي',
+    slides: [
+      `<h1><em>3 استخدامات</em> للذكاء الاصطناعي في الأمن السيبراني</h1>`,
+      `<div class="big">01</div><h2>كشف السلوك غير المعتاد</h2><p class="body">يتعلّم النمط الطبيعي للشبكة وينبّه عند أي نشاط غريب.</p>`,
+      `<div class="big">02</div><h2>فرز التنبيهات</h2><p class="body">يرتّب آلاف التنبيهات حسب الخطورة ليركّز المحلل على الأهم.</p>`,
+      `<div class="big">03</div><h2>كشف رسائل التصيّد</h2><p class="body">يحلل نص الرسالة وروابطها ليكتشف الاحتيال قبل أن يصل إليك.</p>`,
+      `<div class="q">هل سيغيّر الذكاء الاصطناعي وظائف الأمن السيبراني؟</div><p class="sub">شاركنا رأيك في التعليقات.</p>`,
+    ],
+  },
+  'python-libs': {
+    tag: 'Python للأمن السيبراني',
+    slides: [
+      `<h1><em>3 مكتبات</em> Python لكل مختص أمن</h1><p class="sub">ابدأ بها لبناء أدواتك الخاصة</p>`,
+      `<div class="big">01</div><div class="code">import socket</div><h2>الاتصال بالشبكة</h2><p class="body">لبناء أدوات فحص المنافذ والاتصال بالخوادم.</p>`,
+      `<div class="big">02</div><div class="code">import requests</div><h2>التعامل مع الويب</h2><p class="body">لإرسال الطلبات إلى المواقع وواجهات API واختبارها.</p>`,
+      `<div class="big">03</div><div class="code">from scapy.all import *</div><h2>حزم الشبكة</h2><p class="body">لبناء حزم الشبكة والتقاطها وتحليلها.</p>`,
+      `<div class="q">ما أول أداة كتبتها بلغة Python؟</div><p class="sub">أخبرنا في التعليقات.</p>`,
     ],
   },
 };
