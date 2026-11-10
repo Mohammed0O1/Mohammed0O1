@@ -13,6 +13,6 @@ while read f; do
   sum=$(python3 -c "print($sum+$dur)")
 done < /tmp/reel_$n.txt
 ffmpeg -v error -y -f concat -safe 0 -i $d/list.txt -c copy $d/video.mp4
-python3 music.py $sum $d/music.wav
+python3 music_tech.py $sum $d/music.wav
 ffmpeg -v error -y -i $d/video.mp4 -i $d/music.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 128k -ar 44100 -shortest -movflags +faststart out/reel/$n.mp4
 ffprobe -v error -show_entries format=duration,size -of csv=p=0 out/reel/$n.mp4
