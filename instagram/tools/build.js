@@ -11,6 +11,7 @@ const fonts = [400, 600, 700].flatMap((w) => [
 ]).concat([face('Mono', `${F}/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2`, 500)]).join('\n');
 
 const HANDLE = '@m.o.h.a.mmm.ed';
+const LOGO = 'data:image/png;base64,' + fs.readFileSync(path.join(__dirname, 'logo.png')).toString('base64');
 const REEL = !!process.env.REEL;
 const H = REEL ? 1920 : 1350;
 
@@ -26,7 +27,8 @@ body{font-family:"Plex",sans-serif;direction:rtl;background:#0E1A24;color:#F3EFE
 .top .n{font-family:"Mono",monospace;direction:ltr;letter-spacing:2px}
 .tag{color:#F2A541;font-weight:600}
 .foot{position:absolute;bottom:64px;right:110px;left:92px;display:flex;justify-content:space-between;align-items:center;font-size:30px;color:#9FB2BF}
-.foot .h{font-family:"Mono",monospace;direction:ltr}
+.foot .h{font-family:"Mono",monospace;direction:ltr;display:flex;align-items:center;gap:16px}
+.foot .h img{width:92px;height:92px;background:#F3EFE6;border-radius:50%;padding:12px;box-sizing:border-box}
 .swipe{display:flex;align-items:center;gap:16px;color:#F3EFE6;font-weight:600}
 .swipe svg{width:54px;height:24px}
 .mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:44px}
@@ -62,7 +64,7 @@ const shell = (tag, i, n, inner, last) => `<!doctype html><html lang="ar" dir="r
 <div class="grid"></div><div class="band"></div>
 <div class="page"><div class="top"><span class="tag">${tag}</span><span class="n">${String(i).padStart(2, '0')} / ${String(n).padStart(2, '0')}</span></div>
 <div class="mid">${inner}</div></div>
-<div class="foot"><span class="h">${HANDLE}</span>${last ? '<span></span>' : `<span class="swipe">اسحب ${arrow}</span>`}</div>
+<div class="foot"><span class="h"><img src="${LOGO}" alt="">${HANDLE}</span>${last ? '<span></span>' : `<span class="swipe">اسحب ${arrow}</span>`}</div>
 </body></html>`;
 
 const item = (k, t, d) => `<div class="item"><div class="k">${k}</div><div><div class="t">${t}</div><div class="d">${d}</div></div></div>`;
