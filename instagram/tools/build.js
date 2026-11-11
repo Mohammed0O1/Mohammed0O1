@@ -10,7 +10,7 @@ const fonts = [400, 600, 700].flatMap((w) => [
   face('Plex', `${F}/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-latin-${w}-normal.woff2`, w),
 ]).concat([face('Mono', `${F}/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2`, 500)]).join('\n');
 
-const HANDLE = '@m.o.h.a.mmm.ed';
+const HANDLE = '@cy.ber.team';
 const LOGO = 'data:image/png;base64,' + fs.readFileSync(path.join(__dirname, 'logo.png')).toString('base64');
 const REEL = !!process.env.REEL;
 const H = REEL ? 1920 : 1350;
