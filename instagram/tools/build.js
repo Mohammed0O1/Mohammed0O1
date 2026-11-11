@@ -42,7 +42,7 @@ h2{font-size:76px;line-height:1.28;font-weight:700}
 .stamp{align-self:flex-start;border:4px solid #E4572E;color:#E4572E;font-weight:700;font-size:38px;padding:8px 28px;border-radius:12px;transform:rotate(-5deg)}
 .list{display:flex;flex-direction:column;gap:38px}
 .item{display:flex;gap:30px;align-items:flex-start}
-.item .k{flex:none;width:84px;height:84px;border-radius:50%;background:#F2A541;color:#0E1A24;font-family:"Mono",monospace;font-size:40px;display:flex;align-items:center;justify-content:center;direction:ltr}
+.item .k{flex:none;width:84px;height:84px;border-radius:50%;background:#F2A541;color:#0E1A24;font-family:"Mono",monospace;font-size:32px;display:flex;align-items:center;justify-content:center;direction:ltr}
 .item .t{font-size:50px;font-weight:600;line-height:1.35}
 .item .d{font-size:38px;line-height:1.55;color:#C9D4DB;margin-top:8px}
 .note{font-size:34px;line-height:1.6;color:#9FB2BF;border-right:6px solid #2F4657;padding-right:24px}
@@ -184,6 +184,39 @@ const sets = {
       `<div class="big">02</div><div class="code">import requests</div><h2>التعامل مع الويب</h2><p class="body">لإرسال الطلبات إلى المواقع وواجهات API واختبارها.</p>`,
       `<div class="big">03</div><div class="code">from scapy.all import *</div><h2>حزم الشبكة</h2><p class="body">لبناء حزم الشبكة والتقاطها وتحليلها.</p>`,
       `<div class="q">ما أول أداة كتبتها بلغة Python؟</div><p class="sub">أخبرنا في التعليقات.</p>`,
+    ],
+  },
+  'subnetting': {
+    tag: 'الشبكات · CCNA',
+    slides: [
+      `<h1>Subnetting <em>بخدعة واحدة</em></h1><p class="sub">احسب الشبكات الفرعية في ثوانٍ، دون جداول</p>`,
+      `<h2>الخدعة: الرقم السحري</h2><div class="code">block = 256 − mask</div><p class="body">اطرح آخر رقم غير الصفر في القناع من 256. النتيجة هي حجم كل شبكة فرعية، وتبدأ الشبكات من مضاعفاته.</p>`,
+      `<h2>مثال: ‎/26</h2><div class="code">255.255.255.192</div><div class="code">256 − 192 = 64</div><p class="body">كل شبكة فرعية حجمها 64 عنوانًا.</p>`,
+      `<h2>الشبكات الفرعية</h2><div class="code">.0  ·  .64  ·  .128  ·  .192</div><p class="body">4 شبكات، في كل منها 62 جهازًا قابلًا للاستخدام، بعد طرح عنوان الشبكة وعنوان البث.</p>`,
+      `<h2>جرّب بنفسك</h2><div class="code">‎/27  →  255.255.255.224</div><p class="body">كم حجم كل شبكة فرعية؟ وكم جهازًا في كل منها؟</p>`,
+      `<div class="q">اكتب إجابتك عن ‎/27 في التعليقات</div><p class="sub">وتابع الحساب لمزيد من شروحات CCNA.</p>`,
+    ],
+  },
+  'ports-quiz': {
+    tag: 'اختبر نفسك',
+    slides: [
+      `<h1>اختبار سريع: <em>أي منفذ؟</em></h1><p class="sub">سؤال يتكرر في مقابلات العمل وامتحانات الشهادات</p>`,
+      `<h2>ما المنفذ الافتراضي لبروتوكول HTTPS؟</h2>
+       <div class="list">
+        ${item('A', '80', '')}
+        ${item('B', '443', '')}
+        ${item('C', '22', '')}
+       </div>`,
+      `<div class="q">اكتب إجابتك في التعليقات قبل أن تسحب</div><p class="sub">A أو B أو C؟</p>`,
+      `<div class="big">B</div><h2>المنفذ 443</h2><p class="body">HTTPS هو HTTP مع تشفير TLS، ويستخدم المنفذ 443 افتراضيًا.</p>`,
+      `<h2>منافذ يجب أن تحفظها</h2>
+       <div class="list">
+        ${item('22', 'SSH', 'الدخول الآمن عن بُعد')}
+        ${item('53', 'DNS', 'ترجمة أسماء المواقع إلى عناوين')}
+        ${item('80', 'HTTP', 'الويب دون تشفير')}
+        ${item('443', 'HTTPS', 'الويب المشفّر')}
+       </div>`,
+      `<div class="q">هل أجبت بشكل صحيح؟</div><p class="sub">أخبرنا في التعليقات، وتابع الحساب لاختبار جديد.</p>`,
     ],
   },
 };

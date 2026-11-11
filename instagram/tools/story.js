@@ -7,6 +7,7 @@ const fonts = [400, 600, 700].flatMap((w) => ['arabic', 'latin'].map((s) => face
 const stories = {
   'story-phishing': { tag: 'منشور جديد', h: 'هل هذه الرسالة <em>تصيّد؟</em>', sub: '4 علامات تكشف الرسالة المزيّفة في ثوانٍ', q: 'ما أغرب رسالة احتيال وصلتك؟' },
   'story-phone': { tag: 'منشور جديد', h: '3 علامات أن هاتفك <em>مخترق</em>', sub: 'وماذا تفعل إذا ظهرت إحداها', q: 'هل لاحظت إحدى هذه العلامات؟' },
+  'story-subnetting': { tag: 'منشور جديد', h: 'Subnetting <em>بخدعة واحدة</em>', sub: 'احسب الشبكات الفرعية في ثوانٍ، دون جداول', q: 'هل تجد Subnetting صعبًا؟' },
   'story-nmap': { tag: 'منشور جديد', h: '<em>Nmap</em> في 30 ثانية', sub: '4 أوامر تكفيك للبداية مع أشهر أداة في Kali Linux', q: 'أي أداة نشرحها بعدها؟' },
 };
 const html = (s) => `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><style>${fonts}
