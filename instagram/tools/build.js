@@ -55,6 +55,8 @@ h2{font-size:76px;line-height:1.28;font-weight:700}
 .pw.bad{background:#2A1A1A;border:3px solid #E4572E;color:#F3EFE6}
 .pw.good{background:#12281F;border:3px solid #4FB286;color:#F3EFE6;font-size:52px}
 ${REEL ? '.page{padding:280px 110px 420px 92px}.mid{zoom:1.14}.foot{bottom:330px}.swipe{display:none}' : ''}
+.codeblock{font-family:"Mono",monospace;direction:ltr;text-align:left;white-space:pre;background:#0A131B;border:2px solid #2F4657;border-radius:16px;padding:26px 28px;font-size:29px;line-height:1.55;color:#F3EFE6}
+.codeblock b{color:#F2A541;font-weight:500}
 .q{background:#F2A541;color:#0E1A24;border-radius:28px;padding:48px 52px;font-size:60px;font-weight:700;line-height:1.4}
 `;
 
@@ -219,6 +221,70 @@ const sets = {
         ${item('443', 'HTTPS', 'الويب المشفّر')}
        </div>`,
       `<div class="q">هل أجبت بشكل صحيح؟</div><p class="sub">أخبرنا في التعليقات، وتابع الحساب لاختبار جديد.</p>`,
+    ],
+  },
+  'port-scanner': {
+    tag: 'Python للأمن السيبراني',
+    slides: [
+      `<h1>فاحص منافذ بـ<em>Python</em> في 10 أسطر</h1><p class="sub">افهم كيف تعمل أدوات مثل Nmap من الداخل</p>`,
+      `<h2>ما فكرة فحص المنافذ؟</h2><p class="body">كل خدمة على الجهاز تنتظر الاتصال على منفذ برقم معيّن. الفاحص يحاول الاتصال بكل منفذ، فإن نجح الاتصال فالمنفذ مفتوح.</p>`,
+      `<div class="codeblock"><b>import</b> socket
+
+<b>for</b> port <b>in</b> [22, 80, 443]:
+    s = socket.socket()
+    s.settimeout(1)
+    r = s.connect_ex(("127.0.0.1", port))
+    print(port, "open" <b>if</b> r == 0 <b>else</b> "closed")
+    s.close()</div><p class="note">يفحص جهازك أنت فقط (127.0.0.1)</p>`,
+      `<h2>ماذا يفعل الكود؟</h2>
+       <div class="list">
+        ${item('1', 'يجهّز اتصالًا', 'socket هو نقطة الاتصال بالشبكة.')}
+        ${item('2', 'يحاول الاتصال بكل منفذ', 'وينتظر ثانية واحدة كحد أقصى.')}
+        ${item('3', 'يطبع النتيجة', 'الرقم 0 يعني أن الاتصال نجح والمنفذ مفتوح.')}
+       </div>`,
+      `<h2>تنبيه مهم</h2><p class="body">جرّب الكود على جهازك أو على مختبر تملكه فقط.</p><p class="note">فحص أجهزة أو شبكات الآخرين دون إذن مكتوب مخالف للقانون.</p>`,
+      `<div class="q">ما المنافذ التي وجدتها مفتوحة على جهازك؟</div><p class="sub">جرّب الكود وأخبرنا في التعليقات.</p>`,
+    ],
+  },
+  'red-blue': {
+    tag: 'مسارات الأمن السيبراني',
+    slides: [
+      `<h1>الفريق <em>الأحمر</em> أم الفريق <em>الأزرق</em>؟</h1><p class="sub">أي مسار في الأمن السيبراني يناسبك؟</p>`,
+      `<div class="big">RED</div><h2>الفريق الأحمر</h2><p class="body">يحاكي المهاجمين بإذن رسمي، ليكتشف الثغرات قبل أن يستغلها غيره.</p>`,
+      `<h2>يناسبك الأحمر إذا كنت…</h2>
+       <div class="list">
+        ${item('1', 'تحب الألغاز والتحدي', 'وتبحث عن الطريق غير المتوقع.')}
+        ${item('2', 'فضوليًا تقنيًا', 'تريد أن تعرف كيف يتعطل كل شيء.')}
+        ${item('3', 'تستهدف شهادات مثل', 'CEH و OSCP')}
+       </div>`,
+      `<div class="big">BLUE</div><h2>الفريق الأزرق</h2><p class="body">يراقب الأنظمة، ويكتشف الهجمات، ويستجيب لها ويحمي المؤسسة كل يوم.</p>`,
+      `<h2>يناسبك الأزرق إذا كنت…</h2>
+       <div class="list">
+        ${item('1', 'صبورًا ودقيق الملاحظة', 'تلاحظ ما لا يلاحظه غيرك.')}
+        ${item('2', 'تحب التحليل', 'السجلات والتنبيهات والأنماط.')}
+        ${item('3', 'تستهدف وظائف مثل', 'محلل SOC والاستجابة للحوادث')}
+       </div>`,
+      `<div class="q">أحمر أم أزرق؟ ولماذا؟</div><p class="sub">اكتب اختيارك في التعليقات.</p>`,
+    ],
+  },
+  'firewall': {
+    tag: 'الشبكات',
+    slides: [
+      `<h1>ماذا يفعل <em>الجدار الناري</em>؟</h1><p class="sub">في 30 ثانية</p>`,
+      `<div class="big">01</div><h2>حارس على الباب</h2><p class="body">يقف بين شبكتك والإنترنت، ويفحص كل اتصال يدخل أو يخرج.</p>`,
+      `<div class="big">02</div><h2>يعمل بالقواعد</h2><p class="body">يسمح أو يمنع الاتصال حسب العنوان والمنفذ والبروتوكول.</p>`,
+      `<div class="big">03</div><h2>لا يكفي وحده</h2><p class="body">لا يحميك من رابط تصيّد تضغط عليه بنفسك. التوعية جزء من الحماية.</p>`,
+      `<div class="q">هل الجدار الناري مفعّل على جهازك؟</div><p class="sub">أجب في التعليقات.</p>`,
+    ],
+  },
+  'fake-site': {
+    tag: 'الأمن السيبراني',
+    slides: [
+      `<h1><em>3 علامات</em> لموقع مزيّف</h1><p class="sub">قبل أن تُدخل بياناتك أو بطاقتك</p>`,
+      `<div class="big">01</div><h2>العنوان قريب من الأصلي</h2><p class="body">حرف زائد أو ناقص في اسم الموقع، أو امتداد مختلف عن المعتاد.</p>`,
+      `<div class="big">02</div><h2>عروض أكبر من الحقيقة</h2><p class="body">خصومات ضخمة ومؤقت تنازلي يدفعك للشراء بسرعة.</p>`,
+      `<div class="big">03</div><h2>طرق دفع غريبة</h2><p class="body">يطلب تحويلًا مباشرًا أو بيانات بطاقتك في صفحة غير آمنة.</p>`,
+      `<div class="q">هل وقعت أو كدت تقع في موقع مزيّف؟</div><p class="sub">شاركنا تجربتك في التعليقات.</p>`,
     ],
   },
 };
