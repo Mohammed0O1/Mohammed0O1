@@ -25,7 +25,7 @@ h1{font-size:124px;line-height:1.22;font-weight:700}h1 em{font-style:normal;colo
 .q small{display:block;font-size:36px;font-weight:400;color:#9FB2BF;margin-top:14px}
 .h{font-family:"Mono",monospace;direction:ltr;font-size:36px;color:#9FB2BF;display:flex;align-items:center;justify-content:flex-end;gap:18px}.h img{width:120px;height:120px;background:#F3EFE6;border-radius:50%;padding:16px;box-sizing:border-box}
 </style></head><body><div class="grid"></div><div class="band"></div><div class="page">
-<div class="tag">${s.tag}</div><h1>${s.h}</h1><p class="sub">${s.sub}</p>
+<h1>${s.h}</h1><p class="sub">${s.sub}</p>
 <div class="q">${s.q}<small>شاهد المنشور على الحساب وشاركنا في التعليقات</small></div><div class="h">@cy.ber.team<img src="${LOGO}" alt=""></div></div></body></html>`;
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
