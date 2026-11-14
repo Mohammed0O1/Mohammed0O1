@@ -12,6 +12,9 @@ const stories = {
   'story-port-scanner': { tag: 'منشور جديد', h: 'فاحص منافذ بـ<em>Python</em> في 10 أسطر', sub: 'افهم كيف تعمل أدوات الفحص من الداخل', q: 'هل كتبت أداة أمن بنفسك من قبل؟' },
   'story-wireshark': { tag: '', h: 'شاهد ما يمر في <em>شبكتك</em>', sub: 'أشهر أداة لتحليل حركة الشبكة، مجانية ومفتوحة المصدر', q: 'هل جرّبت Wireshark من قبل؟' },
   'story-soc': { tag: '', h: 'يوم في حياة <em>محلل SOC</em>', sub: 'ماذا يفعل حارس المؤسسة الرقمي طوال يومه؟', q: 'هل تتخيّل نفسك تعمل في SOC؟' },
+  'story-courses-a': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', tag: '', h: 'دورات جديدة <em>قريبًا</em>', sub: '7 مسارات في الأمن السيبراني والشبكات والذكاء الاصطناعي', q: 'أي مسار تنتظره أكثر؟' },
+  'story-courses-b': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', tag: '', h: 'الدفاع أم <em>الهجوم</em>؟', sub: 'مسارات الأمن السيبراني القادمة: أساسيات الجاهزية، والدفاع السيبراني، والأمن الهجومي', q: 'أي مسار يناسبك؟' },
+  'story-courses-c': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', tag: '', h: 'الشبكات <em>والذكاء الاصطناعي</em>', sub: 'دورات قادمة في شبكات CCNA، والذكاء الاصطناعي في الأمن السيبراني، ولغة Python', q: 'فعّل الإشعارات ليصلك الإعلان أولًا' },
   'story-nmap': { tag: 'منشور جديد', h: '<em>Nmap</em> في 30 ثانية', sub: '4 أوامر تكفيك للبداية مع أشهر أداة في Kali Linux', q: 'أي أداة نشرحها بعدها؟' },
 };
 const html = (s) => `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><style>${fonts}
@@ -28,7 +31,7 @@ h1{font-size:124px;line-height:1.22;font-weight:700}h1 em{font-style:normal;colo
 .h{font-family:"Mono",monospace;direction:ltr;font-size:36px;color:#9FB2BF;display:flex;align-items:center;justify-content:flex-end;gap:18px}.h img{width:120px;height:120px;background:#F3EFE6;border-radius:50%;padding:16px;box-sizing:border-box}
 </style></head><body><div class="grid"></div><div class="band"></div><div class="page">
 <h1>${s.h}</h1><p class="sub">${s.sub}</p>
-<div class="q">${s.q}<small>شاهد المنشور على الحساب وشاركنا في التعليقات</small></div><div class="h">@cy.ber.team<img src="${LOGO}" alt=""></div></div></body></html>`;
+<div class="q">${s.q}<small>${s.small || 'شاهد المنشور على الحساب وشاركنا في التعليقات'}</small></div><div class="h">@cy.ber.team<img src="${LOGO}" alt=""></div></div></body></html>`;
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
   fs.mkdirSync('out/stories', { recursive: true });
