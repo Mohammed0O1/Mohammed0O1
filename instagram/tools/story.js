@@ -11,6 +11,7 @@ const stories = {
   'story-subnetting': { tag: 'منشور جديد', h: 'Subnetting <em>بخدعة واحدة</em>', sub: 'احسب الشبكات الفرعية في ثوانٍ، دون جداول', q: 'هل تجد Subnetting صعبًا؟' },
   'story-port-scanner': { tag: 'منشور جديد', h: 'فاحص منافذ بـ<em>Python</em> في 10 أسطر', sub: 'افهم كيف تعمل أدوات الفحص من الداخل', q: 'هل كتبت أداة أمن بنفسك من قبل؟' },
   'story-wireshark': { tag: '', h: 'شاهد ما يمر في <em>شبكتك</em>', sub: 'أشهر أداة لتحليل حركة الشبكة، مجانية ومفتوحة المصدر', q: 'هل جرّبت Wireshark من قبل؟' },
+  'story-soc': { tag: '', h: 'يوم في حياة <em>محلل SOC</em>', sub: 'ماذا يفعل حارس المؤسسة الرقمي طوال يومه؟', q: 'هل تتخيّل نفسك تعمل في SOC؟' },
   'story-nmap': { tag: 'منشور جديد', h: '<em>Nmap</em> في 30 ثانية', sub: '4 أوامر تكفيك للبداية مع أشهر أداة في Kali Linux', q: 'أي أداة نشرحها بعدها؟' },
 };
 const html = (s) => `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><style>${fonts}
