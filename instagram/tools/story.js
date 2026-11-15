@@ -15,6 +15,13 @@ const stories = {
   'story-courses-a': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', tag: '', h: 'دورات جديدة <em>قريبًا</em>', sub: '7 مسارات في الأمن السيبراني والشبكات والذكاء الاصطناعي', q: 'أي مسار تنتظره أكثر؟' },
   'story-courses-b': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', tag: '', h: 'الدفاع أم <em>الهجوم</em>؟', sub: 'مسارات الأمن السيبراني القادمة: أساسيات الجاهزية، والدفاع السيبراني، والأمن الهجومي', q: 'أي مسار يناسبك؟' },
   'story-courses-c': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', tag: '', h: 'الشبكات <em>والذكاء الاصطناعي</em>', sub: 'دورات قادمة في شبكات CCNA، والذكاء الاصطناعي في الأمن السيبراني، ولغة Python', q: 'فعّل الإشعارات ليصلك الإعلان أولًا' },
+  'story-course-1': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', badge: 'دورات قادمة · المسار 1 من 7', tag: '', h: 'أساسيات <em>الجاهزية السيبرانية</em>', sub: 'مفاهيم الحماية الرقمية، وإدارة المخاطر، واكتشاف الثغرات. نقطة البداية لكل من يدخل المجال.', q: 'هل هذا المسار لك؟' },
+  'story-course-2': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', badge: 'دورات قادمة · المسار 2 من 7', tag: '', h: 'الدفاع <em>السيبراني</em>', sub: 'المراقبة، وكشف الهجمات، والاستجابة للحوادث، وطريقة عمل مراكز SOC.', q: 'هل هذا المسار لك؟' },
+  'story-course-3': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', badge: 'دورات قادمة · المسار 3 من 7', tag: '', h: 'الأمن <em>الهجومي</em>', sub: 'اختبار الاختراق الأخلاقي واستغلال الثغرات، في بيئات مختبرية وبإذن رسمي.', q: 'هل هذا المسار لك؟' },
+  'story-course-4': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', badge: 'دورات قادمة · المسار 4 من 7', tag: '', h: 'Kali Linux <em>والأدوات السيبرانية</em>', sub: 'تطبيق عملي على أشهر أدوات الفحص والتحليل في المجال.', q: 'هل هذا المسار لك؟' },
+  'story-course-5': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', badge: 'دورات قادمة · المسار 5 من 7', tag: '', h: 'Python <em>للأمن السيبراني</em>', sub: 'ابنِ أدوات الفحص والأتمتة بنفسك، خطوة بخطوة.', q: 'هل هذا المسار لك؟' },
+  'story-course-6': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', badge: 'دورات قادمة · المسار 6 من 7', tag: '', h: 'شبكات <em>CCNA</em>', sub: 'أساسيات الشبكات والتوجيه والتبديل، الأساس المتين لكل مختص أمن وشبكات.', q: 'هل هذا المسار لك؟' },
+  'story-course-7': { small: 'تابع <bdi dir="ltr">@cy.ber.team</bdi> ولا تفوّت الإعلان', badge: 'دورات قادمة · المسار 7 من 7', tag: '', h: 'الذكاء الاصطناعي <em>في الأمن السيبراني</em>', sub: 'كيف يستخدم المدافعون والمهاجمون الذكاء الاصطناعي، وكيف تستفيد منه.', q: 'هل هذا المسار لك؟' },
   'story-nmap': { tag: 'منشور جديد', h: '<em>Nmap</em> في 30 ثانية', sub: '4 أوامر تكفيك للبداية مع أشهر أداة في Kali Linux', q: 'أي أداة نشرحها بعدها؟' },
 };
 const html = (s) => `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><style>${fonts}
@@ -30,7 +37,7 @@ h1{font-size:124px;line-height:1.22;font-weight:700}h1 em{font-style:normal;colo
 .q small{display:block;font-size:36px;font-weight:400;color:#9FB2BF;margin-top:14px}
 .h{font-family:"Mono",monospace;direction:ltr;font-size:36px;color:#9FB2BF;display:flex;align-items:center;justify-content:flex-end;gap:18px}.h img{width:120px;height:120px;background:#F3EFE6;border-radius:50%;padding:16px;box-sizing:border-box}
 </style></head><body><div class="grid"></div><div class="band"></div><div class="page">
-<h1>${s.h}</h1><p class="sub">${s.sub}</p>
+${s.badge ? `<div class="tag">${s.badge}</div>` : ""}<h1>${s.h}</h1><p class="sub">${s.sub}</p>
 <div class="q">${s.q}<small>${s.small || 'شاهد المنشور على الحساب وشاركنا في التعليقات'}</small></div><div class="h">@cy.ber.team<img src="${LOGO}" alt=""></div></div></body></html>`;
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
