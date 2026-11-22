@@ -8,7 +8,9 @@ total=$(wc -l < /tmp/reel_$n.txt); i=0; : > $d/list.txt; sum=0
 while read f; do
   i=$((i+1)); dur=4.6; [ $i -eq 1 ] && dur=3.0; [ $i -eq $total ] && dur=3.6
   st=$(python3 -c "print($dur-0.3)")
-  ffmpeg -nostdin -v error -y -framerate 30 -i "$f" -vf "format=yuv420p,loop=-1:1,trim=duration=$dur,fade=t=in:d=0.3,fade=t=out:st=$st:d=0.3" -c:v libx264 -crf 18 -preset veryfast -pix_fmt yuv420p -r 30 "$d/tmp_$i.mp4"
+  # first slide has no fade-in so frame 1 (the Instagram cover) is the title slide, not black
+  fin="fade=t=in:d=0.3,"; [ $i -eq 1 ] && fin=""
+  ffmpeg -nostdin -v error -y -framerate 30 -i "$f" -vf "format=yuv420p,loop=-1:1,trim=duration=$dur,${fin}fade=t=out:st=$st:d=0.3" -c:v libx264 -crf 18 -preset veryfast -pix_fmt yuv420p -r 30 "$d/tmp_$i.mp4"
   mv "$d/tmp_$i.mp4" "$d/s_$i.mp4"; echo "file 's_$i.mp4'" >> $d/list.txt
   sum=$(python3 -c "print($sum+$dur)")
 done < /tmp/reel_$n.txt
