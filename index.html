@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>التسجيل في الدورات | cy.ber.team</title>
+<meta name="description" content="دورات عملية بالعربي في الأمن السيبراني والشبكات والذكاء الاصطناعي. سجّل الآن عبر واتساب.">
+<meta property="og:title" content="سجّل في دورات الأمن السيبراني والشبكات">
+<meta property="og:description" content="6 مسارات وورشة متخصصة في أدوات Kali Linux. بالعربي وبتطبيق عملي.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0d1720">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1720;--band:#111e2a;--panel:#142230;--line:#24384a;--line2:#3a5468;--ink:#eef2f5;--soft:#b9c6d1;--muted:#a9b7c3;--acc:#f4a640;--accink:#1a1205;--ok:#8fe0b0;--okbg:#1f3a2c}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 'IBM Plex Sans Arabic',system-ui,sans-serif;overflow-x:clip}
+a{color:var(--acc)}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+.mono{font-family:'IBM Plex Mono',monospace}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;border-radius:12px;font:700 17px/1.2 inherit;font-family:inherit;text-decoration:none;cursor:pointer;border:0}
+.btn-acc{background:var(--acc);color:var(--accink)}
+.btn-acc:hover{background:#ffb95c}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}
+.btn-ghost:hover{border-color:var(--acc)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:18px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none}
+.brand img{width:40px;height:40px;border-radius:50%;background:#fff}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;padding-block:28px 56px;align-items:center}
+h1{margin:0;font-size:clamp(34px,5vw,52px);line-height:1.15}
+h1 span{color:var(--acc)}
+.lead{margin:16px 0 24px;font-size:19px;color:var(--soft);max-width:600px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px}
+.next h2{margin:0 0 4px;font-size:20px}
+.next .row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.next .row{flex-wrap:wrap}
+.next .row b{color:var(--acc);text-align:left;margin-inline-start:auto}
+.pill{display:inline-block;font-size:14px;font-weight:500;padding:3px 12px;border-radius:999px;white-space:nowrap}
+.pill-ok{background:var(--okbg);color:var(--ok)}
+.pill-soon{background:#24384a;color:var(--soft)}
+.pill-acc{background:var(--acc);color:var(--accink);font-weight:700}
+.note{font-size:15px;color:var(--muted)}
+.band{background:var(--band);border-block:1px solid #1d2f3e}
+.sec{padding-block:56px}
+h2.t{margin:0 0 24px;font-size:clamp(26px,3.4vw,34px);line-height:1.25}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.track{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.track.open{border-color:#2f6b4a}
+.track .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.track .n{color:var(--acc);font-size:15px}
+.track h3{margin:0;font-size:19px;line-height:1.4}
+.track p{margin:0;font-size:15px;color:var(--muted);flex-grow:1}
+.track .price{font-size:22px;font-weight:700;color:var(--acc)}
+.ws{margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;background:#1c1a12;border:1px solid var(--acc);border-radius:14px;padding:22px 24px}
+.ws h3{margin:6px 0 4px;font-size:21px}
+.ws p{margin:0;font-size:15px;color:var(--soft)}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.feats b{display:block;font-size:20px;margin-bottom:4px}
+.feats span{color:var(--muted)}
+.reg{background:var(--panel);border-top:1px solid var(--line)}
+.reg .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px}
+.steps{display:flex;flex-direction:column;gap:10px;margin:20px 0}
+.step{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1px solid var(--line)}
+.step .d{width:32px;height:32px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;background:var(--line);color:var(--muted)}
+.step.on{border-color:var(--acc);background:var(--bg)}
+.step.on .d{background:var(--acc);color:var(--accink)}
+.step.done .d{background:#2f6b4a;color:var(--ink)}
+.step small{display:block;font-size:14px;color:var(--muted)}
+form,.after{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:24px}
+form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.full{grid-column:1/-1}
+label{display:flex;flex-direction:column;gap:6px;font-size:15px}
+input[type=text],select{font:16px inherit;font-family:inherit;padding:12px 14px;border-radius:10px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);min-height:48px;width:100%}
+input:focus,select:focus,.btn:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.check{flex-direction:row;align-items:center;gap:10px;background:#1c1a12;border:1px solid #5c4a22;border-radius:10px;padding:12px 14px;min-height:48px}
+.check input{width:20px;height:20px;accent-color:var(--acc);flex:none}
+.err{color:#ff9b8a;font-size:15px;min-height:1em}
+.after{display:flex;flex-direction:column;gap:16px}
+.after h3{margin:0;font-size:22px}
+.pay{background:var(--panel);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.pay .r{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pay .r span:first-child{color:var(--muted)}
+.big{font-size:24px;font-weight:700;color:var(--acc);white-space:nowrap}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:28px 40px;color:var(--muted);font-size:15px}
+[hidden]{display:none!important}
+@media(max-width:860px){.hero .wrap,.reg .wrap{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){form{grid-template-columns:minmax(0,1fr)}header .btn{padding:10px 16px;min-height:44px}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="wrap">
+<a class="brand" href="https://instagram.com/cy.ber.team"><img src="logo.png" alt=""><span class="mono" dir="ltr">@cy.ber.team</span></a>
+<a class="btn btn-acc" href="#register">سجّل الآن</a>
+</div>
+</header>
+
+<section class="hero">
+<div class="wrap">
+<div>
+<h1>ابدأ مسارك في الأمن السيبراني والشبكات <span>بشكل صحيح</span></h1>
+<p class="lead">دورات عملية بالعربي، من الأساسيات حتى الاحتراف، ومبنية على متطلبات الشهادات المعروفة. سجّل في دقيقة عبر واتساب.</p>
+<div class="ctas">
+<a class="btn btn-acc" href="#register">احجز مقعدك</a>
+<a class="btn btn-ghost" href="#tracks">شاهد المسارات</a>
+</div>
+</div>
+<div class="card next">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px">
+<h2>الدورات القادمة</h2><span class="pill pill-ok">التسجيل مفتوح</span>
+</div>
+<div class="row"><span>أساسيات الجاهزية السيبرانية</span><b>165 ر.ع</b></div>
+<div class="row"><span>الشبكات المتقدمة (CCNA)</span><b>390 ر.ع</b></div>
+<div class="row"><span>الأمن السيبراني باستخدام الذكاء الاصطناعي</span><b>190 ر.ع</b></div>
+<div class="row"><span>ورشة أدوات Kali Linux</span><b>مجانية لمتدربي الدورات</b></div>
+<div class="row" style="border-top:1px solid var(--line)"><span>موعد الدورات</span><b style="color:var(--ink)">ديسمبر 2026 حتى 15 يناير 2027</b></div>
+<p class="note" style="margin:8px 0 0">يصلك جدول كل دورة ومكانها على واتساب عند التسجيل.</p>
+</div>
+</div>
+</section>
+
+<section class="band" id="tracks">
+<div class="wrap sec">
+<h2 class="t">6 مسارات وورشة متخصصة</h2>
+<div class="grid" id="trackGrid"></div>
+<div class="ws">
+<div style="flex:999 1 420px">
+<span class="pill pill-acc">مجانية لمتدربي الدورات</span>
+<h3>ورشة أدوات Kali Linux</h3>
+<p>ورشة عملية مركّزة على أشهر أدوات الفحص والتحليل في Kali Linux، داخل بيئة مختبر آمنة.</p>
+</div>
+<a class="btn btn-ghost" style="border-color:var(--acc);color:var(--acc)" href="#register">مجانًا مع أي دورة</a>
+</div>
+</div>
+</section>
+
+<section class="wrap sec feats">
+<div><b>بالعربي وعملي</b><span>شرح واضح بلغتك، ومختبرات تطبّق فيها كل درس بنفسك.</span></div>
+<div><b>مبني على الشهادات</b><span>المحتوى يغطي متطلبات شهادات معروفة مثل CCNA، ليخدم مسارك المهني.</span></div>
+<div><b>من الصفر</b><span>مناسب للطلاب والمبتدئين، ومن يريد تغيير مساره إلى التقنية.</span></div>
+</section>
+
+<section class="reg" id="register">
+<div class="wrap sec">
+<div>
+<h2 class="t" style="margin:0">احجز مقعدك</h2>
+<div class="steps">
+<div class="step on" id="s1"><span class="d">1</span><div><b>التسجيل</b><small>بياناتك ترسلها لنا على واتساب</small></div></div>
+<div class="step" id="s2"><span class="d">2</span><div><b>الدفع</b><small>تحويل، وإرسال الإيصال في المحادثة نفسها</small></div></div>
+<div class="step" id="s3"><span class="d">3</span><div><b>التأكيد</b><small>نؤكد مقعدك خلال 24 ساعة</small></div></div>
+</div>
+<p class="note">بياناتك تُستخدم للتواصل بخصوص الدورات فقط.</p>
+</div>
+
+<div>
+<form id="regForm" novalidate>
+<label class="full" for="f-name">الاسم الكامل
+<input id="f-name" type="text" autocomplete="name" placeholder="مثال: أحمد بن سالم">
+</label>
+<label for="f-city">الولاية
+<input id="f-city" type="text" placeholder="مثال: السيب">
+</label>
+<label for="f-level">مستواك الحالي
+<select id="f-level"><option>مبتدئ تمامًا</option><option>عندي أساسيات</option><option>متوسط</option><option>متقدم</option></select>
+</label>
+<label class="full" for="f-course">الدورة
+<select id="f-course"></select>
+</label>
+<label class="full check" for="f-kali"><input id="f-kali" type="checkbox" checked>أرغب بحضور ورشة أدوات Kali Linux (مجانية لمتدربي الدورات)</label>
+<div class="err full" id="err" role="alert"></div>
+<button class="btn btn-acc full" type="submit" style="font-size:18px;min-height:54px">أرسل التسجيل عبر واتساب</button>
+</form>
+
+<div class="after" id="after" hidden>
+<h3>الخطوة التالية: الدفع</h3>
+<p style="margin:0;color:var(--soft)">فتحنا لك واتساب برسالة تسجيلك جاهزة. اضغط «إرسال» هناك، ثم حوّل الرسوم:</p>
+<div class="pay">
+<div class="r"><span>الدورة</span><b id="o-course"></b></div>
+<div class="r"><span>المبلغ</span><span class="big" id="o-fee"></span></div>
+</div>
+<div class="pay">
+<div class="r"><span>تحويل لرقم الهاتف</span><b class="mono" dir="ltr">7999 5041</b></div>
+<div class="r"><span>باسم</span><b>محمد العبري</b></div>
+<div class="r"><span>تحويل بنكي</span><b>نرسل لك بيانات الحساب على واتساب</b></div>
+</div>
+<p style="margin:0;color:var(--soft)">بعد التحويل أرسل صورة الإيصال في محادثة واتساب نفسها، ونؤكد مقعدك خلال 24 ساعة.</p>
+<div class="ctas">
+<a class="btn btn-acc" id="waAgain" href="#">افتح واتساب مرة أخرى</a>
+<button class="btn btn-ghost" type="button" id="edit">تعديل البيانات</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+<span>واتساب: <a dir="ltr" href="https://wa.me/96879995041">+968 7999 5041</a></span>
+<span>إنستغرام: <a dir="ltr" href="https://instagram.com/cy.ber.team">@cy.ber.team</a> · سلطنة عُمان</span>
+</div>
+</footer>
+
+<script>
+{
+const WA = '96879995041';
+const tracks = [
+  { name: 'أساسيات الجاهزية السيبرانية', desc: 'نقطة البداية لكل من يدخل المجال.', fee: 165, open: true },
+  { name: 'الدفاع السيبراني', desc: 'مراقبة الشبكات، والتحليل، والاستجابة للحوادث.', fee: 420, open: false },
+  { name: 'الهجوم السيبراني', desc: 'اختبار الاختراق بشكل أخلاقي في بيئة مختبر.', fee: 420, open: false },
+  { name: 'الأمن السيبراني باستخدام الذكاء الاصطناعي', desc: 'كيف يكشف الذكاء الاصطناعي الهجمات ويسرّع عمل المحلل.', fee: 190, open: true },
+  { name: 'بايثون للأمن السيبراني', desc: 'اكتب أدواتك بنفسك وأتمت مهامك.', fee: 190, open: false },
+  { name: 'الشبكات المتقدمة (CCNA)', desc: 'وحدات CCNA كاملة، مع مختبرات عملية.', fee: 390, open: true }
+];
+const grid = document.getElementById('trackGrid');
+grid.innerHTML = tracks.map((t, i) => `
+  <div class="track${t.open ? ' open' : ''}">
+    <div class="top"><span class="n mono">${String(i + 1).padStart(2, '0')}</span>
+    <span class="pill ${t.open ? 'pill-ok' : 'pill-soon'}">${t.open ? 'التسجيل مفتوح' : 'قريبًا'}</span></div>
+    <h3>${t.name}</h3><p>${t.desc}</p>
+    <span class="price">${t.fee} ر.ع</span>
+  </div>`).join('');
+
+const sel = document.getElementById('f-course');
+const open = tracks.filter(t => t.open);
+sel.innerHTML = open.map((t, i) => `<option value="${i}">${t.name} (${t.fee} ر.ع)</option>`).join('');
+
+const form = document.getElementById('regForm');
+const after = document.getElementById('after');
+const err = document.getElementById('err');
+const steps = ['s1', 's2', 's3'].map(id => document.getElementById(id));
+let link = '#';
+
+const setStep = n => steps.forEach((s, i) => {
+  s.classList.toggle('on', i === n - 1);
+  s.classList.toggle('done', i < n - 1);
+  s.querySelector('.d').textContent = i < n - 1 ? '✓' : String(i + 1);
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('f-name').value.trim();
+  const city = document.getElementById('f-city').value.trim();
+  const level = document.getElementById('f-level').value;
+  const kali = document.getElementById('f-kali').checked;
+  const t = open[+sel.value];
+  if (name.length < 3) { err.textContent = 'اكتب اسمك الكامل من فضلك.'; document.getElementById('f-name').focus(); return; }
+  err.textContent = '';
+  const msg = [
+    'السلام عليكم، أرغب بالتسجيل في الدورة:',
+    'الاسم: ' + name,
+    'الولاية: ' + (city || '-'),
+    'الدورة: ' + t.name + ' (' + t.fee + ' ر.ع)',
+    'المستوى: ' + level,
+    'ورشة Kali Linux: ' + (kali ? 'نعم' : 'لا')
+  ].join('\n');
+  link = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+  document.getElementById('o-course').textContent = t.name;
+  document.getElementById('o-fee').textContent = t.fee + ' ر.ع';
+  document.getElementById('waAgain').href = link;
+  form.hidden = true; after.hidden = false; setStep(2);
+  window.location.href = link;
+});
+
+document.getElementById('edit').addEventListener('click', () => {
+  after.hidden = true; form.hidden = false; setStep(1);
+});
+}
+</script>
+</body>
+</html>
