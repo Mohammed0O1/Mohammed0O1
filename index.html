@@ -87,6 +87,7 @@ input:focus,select:focus,.btn:focus-visible{outline:2px solid var(--acc);outline
 .big{font-size:24px;font-weight:700;color:var(--acc);white-space:nowrap}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:28px 40px;color:var(--muted);font-size:15px}
 [hidden]{display:none!important}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 @media(max-width:860px){.hero .wrap,.reg .wrap{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:560px){form{grid-template-columns:minmax(0,1fr)}header .btn{padding:10px 16px;min-height:44px}}
 </style>
@@ -150,7 +151,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <div>
 <h2 class="t" style="margin:0">احجز مقعدك</h2>
 <div class="steps">
-<div class="step on" id="s1"><span class="d">1</span><div><b>التسجيل</b><small>بياناتك ترسلها لنا على واتساب</small></div></div>
+<div class="step on" id="s1"><span class="d">1</span><div><b>التسجيل</b><small>يصلك ملخص التسجيل على بريدك</small></div></div>
 <div class="step" id="s2"><span class="d">2</span><div><b>الدفع</b><small>تحويل، وإرسال الإيصال في المحادثة نفسها</small></div></div>
 <div class="step" id="s3"><span class="d">3</span><div><b>التأكيد</b><small>نؤكد مقعدك خلال 24 ساعة</small></div></div>
 </div>
@@ -162,6 +163,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <label class="full" for="f-name">الاسم الكامل
 <input id="f-name" type="text" autocomplete="name" placeholder="مثال: أحمد بن سالم">
 </label>
+<label class="full" for="f-email">البريد الإلكتروني
+<input id="f-email" type="email" autocomplete="email" inputmode="email" dir="ltr" placeholder="name@example.com" style="text-align:right">
+</label>
 <label for="f-city">الولاية
 <input id="f-city" type="text" placeholder="مثال: السيب">
 </label>
@@ -172,6 +176,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <select id="f-course"></select>
 </label>
 <label class="full check" for="f-kali"><input id="f-kali" type="checkbox" checked>أرغب بحضور ورشة أدوات Kali Linux (مجانية لمتدربي الدورات)</label>
+<label class="hp" aria-hidden="true">لا تملأ هذا الحقل<input id="f-website" type="text" tabindex="-1" autocomplete="off"></label>
 <div class="err full" id="err" role="alert"></div>
 <button class="btn btn-acc full" type="submit" style="font-size:18px;min-height:54px">أرسل التسجيل عبر واتساب</button>
 </form>
@@ -180,6 +185,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <h3>الخطوة التالية: الدفع</h3>
 <p style="margin:0;color:var(--soft)">فتحنا لك واتساب برسالة تسجيلك جاهزة. اضغط «إرسال» هناك، ثم حوّل الرسوم:</p>
 <div class="pay">
+<div class="r"><span>رقم التسجيل</span><b class="mono" dir="ltr" id="o-ref"></b></div>
 <div class="r"><span>الدورة</span><b id="o-course"></b></div>
 <div class="r"><span>المبلغ</span><span class="big" id="o-fee"></span></div>
 </div>
@@ -188,7 +194,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <div class="r"><span>باسم</span><b>محمد العبري</b></div>
 <div class="r"><span>تحويل بنكي</span><b>نرسل لك بيانات الحساب على واتساب</b></div>
 </div>
-<p style="margin:0;color:var(--soft)">بعد التحويل أرسل صورة الإيصال في محادثة واتساب نفسها، ونؤكد مقعدك خلال 24 ساعة.</p>
+<p style="margin:0;color:var(--soft)">بعد التحويل أرسل صورة الإيصال في محادثة واتساب نفسها مع رقم التسجيل، ونؤكد مقعدك خلال 24 ساعة.</p>
+<p class="note" style="margin:0" id="o-mail"></p>
 <div class="ctas">
 <a class="btn btn-acc" id="waAgain" href="#">افتح واتساب مرة أخرى</a>
 <button class="btn btn-ghost" type="button" id="edit">تعديل البيانات</button>
@@ -208,6 +215,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <script>
 {
 const WA = '96879995041';
+// Google Apps Script web app URL (ends with /exec). Empty = WhatsApp only.
+const SHEET_URL = '';
 const tracks = [
   { name: 'أساسيات الجاهزية السيبرانية', desc: 'نقطة البداية لكل من يدخل المجال.', fee: 165, open: true },
   { name: 'الدفاع السيبراني', desc: 'مراقبة الشبكات، والتحليل، والاستجابة للحوادث.', fee: 420, open: false },
@@ -247,23 +256,38 @@ form.addEventListener('submit', e => {
   const city = document.getElementById('f-city').value.trim();
   const level = document.getElementById('f-level').value;
   const kali = document.getElementById('f-kali').checked;
+  const email = document.getElementById('f-email').value.trim();
+  const website = document.getElementById('f-website').value;
   const t = open[+sel.value];
   if (name.length < 3) { err.textContent = 'اكتب اسمك الكامل من فضلك.'; document.getElementById('f-name').focus(); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.textContent = 'اكتب بريدًا إلكترونيًا صحيحًا.'; document.getElementById('f-email').focus(); return; }
   err.textContent = '';
+  const d = new Date();
+  const ref = 'CT-' + String(d.getFullYear()).slice(2) + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0') + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+  if (SHEET_URL) {
+    try {
+      fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ ref, name, email, city, course: t.name, fee: t.fee, level, kali, website }) });
+    } catch (x) {}
+  }
   const msg = [
     'السلام عليكم، أرغب بالتسجيل في الدورة:',
+    'رقم التسجيل: ' + ref,
     'الاسم: ' + name,
+    'البريد: ' + email,
     'الولاية: ' + (city || '-'),
     'الدورة: ' + t.name + ' (' + t.fee + ' ر.ع)',
     'المستوى: ' + level,
     'ورشة Kali Linux: ' + (kali ? 'نعم' : 'لا')
   ].join('\n');
   link = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+  document.getElementById('o-ref').textContent = ref;
+  document.getElementById('o-mail').textContent = SHEET_URL ? 'أرسلنا ملخص التسجيل وتعليمات الدفع إلى ' + email + ' (تحقق من البريد غير المرغوب إن لم تجده).' : '';
   document.getElementById('o-course').textContent = t.name;
   document.getElementById('o-fee').textContent = t.fee + ' ر.ع';
   document.getElementById('waAgain').href = link;
   form.hidden = true; after.hidden = false; setStep(2);
-  window.location.href = link;
+  setTimeout(() => { window.location.href = link; }, SHEET_URL ? 400 : 0);
 });
 
 document.getElementById('edit').addEventListener('click', () => {
