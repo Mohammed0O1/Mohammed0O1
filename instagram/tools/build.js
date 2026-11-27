@@ -868,6 +868,74 @@ print(Counter(ips).most_common(5))</div><p class="note">جرّبه على سجل
       `<div class="q">ما الملف الذي ستجرّب عليه هذا السكربت أولًا؟</div><p class="sub">اكتبه في التعليقات.</p>`,
     ],
   },
+  'launch': {
+    tag: 'دورات ديسمبر',
+    end: false,
+    slides: [
+      `<h1>التسجيل <em>مفتوح</em></h1><p class="sub">دورات ديسمبر 2026 في الأمن السيبراني والشبكات والذكاء الاصطناعي</p>`,
+      `<div class="big">165</div><p class="sub" style="margin-top:-8px">ريال عماني</p><h2>أساسيات الجاهزية السيبرانية</h2><p class="body">نقطة البداية لكل من يدخل المجال: مفاهيم الحماية، والمخاطر، والثغرات.</p>`,
+      `<div class="big">390</div><p class="sub" style="margin-top:-8px">ريال عماني</p><h2>الشبكات المتقدمة CCNA</h2><p class="body">وحدات CCNA كاملة، مع مختبرات عملية في التوجيه والتبديل.</p>`,
+      `<div class="big">190</div><p class="sub" style="margin-top:-8px">ريال عماني</p><h2>الأمن السيبراني باستخدام الذكاء الاصطناعي</h2><p class="body">كيف يكشف الذكاء الاصطناعي الهجمات ويسرّع عمل المحلل.</p>`,
+      `<h2>ورشة أدوات Kali Linux</h2><p class="body">مجانية لمتدربي الدورات: تطبيق عملي على أشهر أدوات الفحص والتحليل، داخل بيئة مختبر آمنة.</p>`,
+      `<h2>الموعد</h2><p class="body">من ديسمبر 2026 حتى 15 يناير 2027. يصلك جدول دورتك ومكانها عند التسجيل.</p>`,
+      `<h2>سجّل في 3 خطوات</h2>
+       <div class="list">
+        ${item('1', 'سجّل بياناتك', 'عبر صفحة التسجيل أو واتساب.')}
+        ${item('2', 'حوّل الرسوم', 'لرقم الهاتف أو للحساب البنكي.')}
+        ${item('3', 'نؤكد مقعدك', 'خلال 24 ساعة من استلام الإيصال.')}
+       </div>`,
+      `<div class="q">أي دورة تناسبك؟</div><p class="sub">للتسجيل والاستفسار: واتساب <bdi dir="ltr" style="white-space:nowrap">7999 5041</bdi></p>`,
+    ],
+  },
+  'acl': {
+    tag: 'الشبكات · CCNA',
+    slides: [
+      `<h1>قوائم التحكم <em>ACL</em></h1><p class="sub">كيف يقرر الراوتر من يمر ومن يُمنع</p>`,
+      `<h2>الفكرة ببساطة</h2><p class="body">قائمة قواعد على واجهة الراوتر، كل قاعدة تسمح بحركة معينة أو تمنعها، وتُقرأ من الأعلى إلى الأسفل.</p>`,
+      `<div class="big">01</div><h2>النوع القياسي</h2><p class="body">يفحص عنوان المصدر فقط. أرقامه من 1 إلى 99، ويوضع قريبًا من الوجهة.</p>`,
+      `<div class="big">02</div><h2>النوع الموسّع</h2><p class="body">يفحص المصدر والوجهة والبروتوكول والمنفذ. أرقامه من 100 إلى 199، ويوضع قريبًا من المصدر.</p>`,
+      `<h2>مثال: منع Telnet</h2><div class="codeblock"><b>ip access-list extended</b> NO-TELNET
+ <b>deny</b> tcp any any eq 23
+ <b>permit</b> ip any any
+<b>interface</b> g0/0
+ ip access-group NO-TELNET in</div><p class="note">يمنع بروتوكول Telnet غير المشفّر، ويسمح بباقي الحركة.</p>`,
+      `<h2>قاعدة لا تنساها</h2><p class="body">في نهاية كل قائمة قاعدة مخفية تمنع كل شيء. إذا لم تضف قاعدة سماح، فستُمنع كل الحركة.</p>`,
+      `<div class="q">لماذا يوضع النوع القياسي قرب الوجهة؟</div><p class="sub">اكتب إجابتك في التعليقات.</p>`,
+    ],
+  },
+  'stp': {
+    tag: 'الشبكات · CCNA',
+    slides: [
+      `<h1>بروتوكول <em>STP</em> في 30 ثانية</h1><p class="sub">لماذا لا تنهار الشبكة عند وجود حلقة بين السويتشات</p>`,
+      `<h2>المشكلة</h2><p class="body">عند ربط السويتشات بأكثر من مسار، تدور الرسائل في حلقة بلا نهاية وتُغرق الشبكة خلال ثوانٍ.</p>`,
+      `<div class="big">01</div><h2>اختيار الجذر</h2><p class="body">تنتخب السويتشات سويتشًا جذرًا، وهو صاحب أقل معرّف.</p>`,
+      `<div class="big">02</div><h2>أقصر طريق</h2><p class="body">كل سويتش يختار منفذه الأقرب إلى الجذر.</p>`,
+      `<div class="big">03</div><h2>إغلاق الزائد</h2><p class="body">المنافذ التي تصنع حلقة توضع في حالة حظر، وتبقى احتياطًا إذا انقطع المسار الأساسي.</p>`,
+      `<div class="code">show spanning-tree</div><h2>تحقّق بنفسك</h2><p class="body">يعرض الجذر وحالة كل منفذ على السويتش.</p>`,
+      `<div class="q">برأيك، ماذا يحدث إذا انقطع المسار الأساسي؟</div><p class="sub">اكتب إجابتك في التعليقات.</p>`,
+    ],
+  },
+  'py-passcheck': {
+    tag: 'Python للأمن السيبراني',
+    slides: [
+      `<h1>افحص قوة كلمة المرور <em>بلغة Python</em></h1><p class="sub">سكربت قصير يقيّم كلمة المرور ويخبرك بما ينقصها</p>`,
+      `<h2>الفكرة</h2><p class="body">نتحقق من الطول، والأحرف الكبيرة والصغيرة، والأرقام، والرموز. كل شرط يضيف نقطة.</p>`,
+      `<div class="codeblock"><b>import</b> re
+
+<b>def</b> score(pw):
+    checks = [len(pw) >= 12,
+        re.search(<b>r"[A-Z]"</b>, pw),
+        re.search(<b>r"[a-z]"</b>, pw),
+        re.search(<b>r"\\d"</b>, pw),
+        re.search(<b>r"[^\\w]"</b>, pw)]
+    <b>return</b> sum(bool(c) <b>for</b> c <b>in</b> checks)
+
+print(score(<b>"Muscat@2026"</b>))</div><p class="note">لا تكتب كلمة مرورك الحقيقية في أي سكربت.</p>`,
+      `<h2>النتيجة</h2><p class="body">كلمة المرور في المثال تحصل على 4 من 5، لأن طولها 11 حرفًا فقط. الطول أهم شرط.</p>`,
+      `<h2>نصيحة</h2><p class="body">عبارة مرور طويلة من كلمات عشوائية أقوى من كلمة قصيرة معقدة، وأسهل للحفظ.</p>`,
+      `<div class="q">كم حرفًا طول كلمة مرورك الآن؟</div><p class="sub">أجب بالرقم فقط في التعليقات.</p>`,
+    ],
+  },
 };
 
 (async () => {
@@ -876,7 +944,7 @@ print(Counter(ips).most_common(5))</div><p class="note">جرّبه على سجل
   for (const [name, set] of Object.entries(sets)) {
     if (process.argv.length > 2 && !process.argv.includes(name)) continue;
     const dir = path.join(__dirname, REEL ? 'out/reel' : 'out', name);
-    if (REEL) set.slides.push(`<h2>قريبًا</h2><p class="body">دورات محدّثة في الأمن السيبراني، والشبكات، والذكاء الاصطناعي.</p><div class="q">تابع الحساب ليصلك الإعلان أولًا</div>`);
+    if (REEL && set.end !== false) set.slides.push(`<h2>التسجيل مفتوح</h2><p class="body">دورات ديسمبر في الأمن السيبراني، والشبكات، والذكاء الاصطناعي.</p><div class="q">سجّل عبر واتساب <bdi dir="ltr" style="white-space:nowrap">7999 5041</bdi></div>`);
     fs.mkdirSync(dir, { recursive: true });
     const n = set.slides.length;
     for (let i = 0; i < n; i++) {
